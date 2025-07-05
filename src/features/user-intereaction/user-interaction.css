@@ -1,0 +1,62 @@
+
+
+.user-interaction-selection.vjs-control {
+    position:absolute;
+    right:1.2rem;
+    bottom:1rem;
+    width:3rem;
+    z-index:10;
+    height:max-content;
+    display:flex;
+    flex-direction:column;
+  }
+  .like-interaction {
+    cursor:pointer;
+    height:50px;
+    width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:rgba(0,0,0,0.3);
+    /* background:#ffffff46;
+    */
+      border-radius:12px;
+    margin-bottom:24px;
+  }
+  .like-interaction:hover,.share-interaction:hover {
+    scale:1.1;
+    background:rgba(0,0,0,0.5);
+  }
+  .share-interaction {
+    cursor:pointer;
+    height:50px;
+    width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-radius:12px;
+    background:rgba(0,0,0,0.3);
+    /* background:#ffffff46;
+    */  
+      margin-bottom:24px;
+  }
+  .category-interaction {
+    cursor:pointer;
+    height:50px;
+    width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-radius:12px;
+    margin-bottom:24px;
+  }
+  .category-interaction:hover {
+    scale:1.1;
+  }
+  .like-interaction.liked {
+    color:red;
+  }
+  .like-interaction.unliked {
+    color:white;
+  }
+  

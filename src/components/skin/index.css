@@ -1,0 +1,125 @@
+/* Progress-bar */
+.vertical-player-wrapper .vjs-progress-control.vjs-control {
+    z-index: 10;
+    position: absolute !important;
+    height: 20px !important;
+    bottom: 0 !important;
+    width: 100% !important
+}
+
+.vertical-player-wrapper .vjs-play-progress.vjs-slider-bar {
+    background-color: red !important;
+}
+
+.vertical-player-wrapper .video-js .vjs-progress-control .vjs-progress-holder {
+    margin: 0 !important;
+    height: 7.5px !important;
+}
+
+.vertical-player-wrapper .video-js .vjs-play-progress:before {
+    display: none !important;
+}
+
+.vertical-player-wrapper .video-js .vjs-progress-control {
+    align-items: end !important;
+}
+
+/* Volume Pannel */
+.vertical-player-wrapper .vjs-volume-panel {
+    z-index: 10;
+}
+
+.vertical-player-wrapper .vjs-volume-panel.vjs-control>button {
+    width: 3.4em !important;
+    top: 1px !important;
+}
+
+.vertical-player-wrapper .vjs-mute-control.vjs-control.vjs-button {
+    outline: none;
+}
+
+.vertical-player-wrapper .video-js .vjs-volume-panel.vjs-control.vjs-volume-panel-horizontal {
+    outline: none !important;
+    position: absolute;
+    top: 0;
+    font-size: 15px;
+    left: 5.5rem;
+    width: 50px;
+    height: 50px;
+    background: rgba(0, 0, 0, 0.3);
+    /* background:#ffffff46;
+    */
+    top: 1rem;
+    border-radius: 12px;
+    transition: width 0.5s !important
+}
+
+.vertical-player-wrapper .video-js .vjs-volume-panel.vjs-control.vjs-volume-panel-horizontal:hover {
+    width: 10em !important;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.5);
+    /* background:#ffffff78;
+    */
+}
+
+.vertical-player-wrapper .video-js .vjs-volume-panel .vjs-volume-control.vjs-volume-horizontal {
+    outline: none;
+    transition: visibility 1s !important;
+}
+
+.vertical-player-wrapper .video-js .vjs-volume-control.vjs-control.vjs-volume-horizontal {
+    display: block !important;
+}
+
+/* PlayToggle */
+.vertical-player-wrapper button.vjs-play-control {
+    z-index: 10;
+}
+
+.vertical-player-wrapper button.vjs-play-control.vjs-control.vjs-button {
+    outline: none;
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    font-size: 15px;
+    height: 50px;
+    width: 50px;
+    background: rgba(0, 0, 0, 0.3);
+    /* background:#ffffff46;
+    */
+    border-radius: 12px;
+}
+
+.vertical-player-wrapper button.vjs-play-control.vjs-control.vjs-button:hover {
+    background: rgba(0, 0, 0, 0.5);
+    /* background-color:#ffffff78;
+    */
+}
+
+.vertical-player-wrapper button.vjs-play-control.vjs-control.vjs-button>.vjs-icon-placeholder:before {
+    font-size: 1.8em;
+    line-height: 1.8;
+}
+
+@media (min-width:600px) {
+
+    /* to enable click events like play pause */
+    .vertical-player-wrapper .video-js.vjs-playing .vjs-tech {
+        pointer-events: unset !important;
+    }
+
+    .vertical-player-wrapper .video-js.vjs-ended .vjs-tech {
+        pointer-events: unset !important;
+    }
+}
+
+@media (max-width:600px) {
+    .vertical-player-wrapper .video-js .vjs-volume-panel.vjs-control.vjs-volume-panel-horizontal:hover {
+        width: unset !important;
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+    .vertical-player-wrapper .video-js .vjs-volume-panel.vjs-control.vjs-volume-panel-horizontal:hover>.vjs-volume-control.vjs-control.vjs-volume-horizontal {
+        display: none !important;
+    }
+}

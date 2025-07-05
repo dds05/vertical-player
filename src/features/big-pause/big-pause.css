@@ -1,0 +1,31 @@
+.vertical-player-wrapper .big-pause-btn {
+    z-index: 10;
+    position: absolute;
+    align-self: center;
+    justify-self: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: visibility 0.1s ease-out;
+    top: 50%;
+    left: 60%;
+    right: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+}
+
+.vertical-player-wrapper .big-pause-btn.hide {
+    visibility: hidden !important;
+    position: absolute;
+    top: 50%;
+    left: 60%;
+    right: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.vertical-player-wrapper .vjs-big-play-button {
+    display: none !important;
+}

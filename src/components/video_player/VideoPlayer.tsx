@@ -1,0 +1,76 @@
+"use client";
+
+
+
+import React, { useEffect, useRef } from "react";
+import videojs from "video.js";
+import "video.js/dist/video-js.css";
+import './VideoPlayer.css';
+import { initaliseSkin } from "../skin";
+
+interface VideoPlayerProps {
+  videoSrc: { src: string; type: string };
+  playerId: string;
+  playing?: boolean;
+}
+
+const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoSrc, playerId, playing = true }) => {
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const playerRef = useRef<videojs.Player | null>(null);
+
+  useEffect(() => {
+
+        if (videoRef.current && !playerRef.current) {
+            console.log(videoRef.current,playerId);
+            
+            playerRef.current = videojs(videoRef.current, {
+              autoplay: false,
+              controls: false,
+              playerId :playerId,
+              muted: true,
+              loop: true,
+              preload: "auto",
+      
+              aspectRatio: '9:16',
+              sources: [videoSrc],
+            },()=>{
+            //   initaliseSkin(playerId,{})
+            });
+          }
+
+
+
+    return () => {
+      if (playerRef.current) {
+        // playerRef.current.dispose();
+        // playerRef.current = null;
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!playerRef.current) return;
+
+    if (playing) {
+      playerRef.current.play().catch((err) => {
+        console.warn("Autoplay blocked or failed:", err);
+      });
+    } else {
+      playerRef.current.pause();
+    }
+  }, [playing]);
+
+  return (
+    <div className="vertical-player-wrapper">
+      <video
+        ref={videoRef}
+        id={playerId}
+        className="video-js vjs-big-play-centered"
+        playsInline
+      />
+    </div>
+  );
+};
+
+export default VideoPlayer;
+
