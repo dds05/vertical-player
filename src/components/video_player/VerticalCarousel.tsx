@@ -41,8 +41,8 @@ const temp:any = [
     // { id:"20",title:"Title20",permalink:"permalink5",asset: { src: 'https://v-msndev.develop.monumentalsportsnetwork.com/Renditions/20240802/RW20seconds-1-1722588120209/RW20seconds-1-1722588120209_720.mp4#t=0.3', type: 'video/mp4' }, description: 'FAIRWAY TO HEAVEN EPISODE 4: NEW SMASH STAR TALOR GOOCH', featuredTag: 'sss' },
 ];
 
-const BATCH_SIZE = 2;
-const MAX_VISIBLE_PLAYERS = 3;
+const BATCH_SIZE = 4;
+const MAX_VISIBLE_PLAYERS = 10;
 
 
 const defaultInteractions = {
@@ -202,7 +202,7 @@ const VerticalPlayer = ({ data, initIndex = 0, interactions = defaultInteraction
                                     <VideoPlayer
                                 videoSrc={element.asset}
                             playing={index==currentIndex}
-                            playerId={`video-player-${index}`}
+                            playerId={`video-player-${element.id}`}
             />
                     </div>
                 );
