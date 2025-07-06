@@ -1,6 +1,6 @@
 import videojs from "video.js";
 import './index.css'
-import { BigPauseIcon, BigPlayIcon } from "../../assets";
+import { BigPlayIcon } from "../../assets";
 import { getPlayer, parseSvgString } from "../../utils/generic";
 import { PlayerIdType, PlayerInstance } from "@/components/types/videojs";
 const Component = videojs.getComponent('Component');
@@ -43,25 +43,22 @@ class BigPlayButton extends Component {
     if (playerEl) {
       playerEl.onclick = (e) => {
         if (player?.paused()) {
-          console.log(1);
-
           player.play()
           parent.classList.add('hide')
         } else {
-          console.log(2);
           player?.pause()
           parent.classList.remove('hide')
         }
       }
-      //   playerel.addEventListener('touchstart', () =>{
-      //     if (player.paused()) {
-      //       player.play() 
-      //       parent.classList.add('hide')
-      //     } else {
-      //       player.pause() 
-      //       parent.classList.remove('hide')
-      //     }
-      //   })
+      playerEl.addEventListener('touchstart', () => {
+        if (player?.paused()) {
+          player.play()
+          parent.classList.add('hide')
+        } else {
+          player?.pause()
+          parent.classList.remove('hide')
+        }
+      })
     }
 
     player?.on('play', () => {
