@@ -1,5 +1,4 @@
 "use client"
-
 import React, { useEffect, useRef, useState, useCallback, useMemo } from 'react';
 import VideoPlayer from './VideoPlayer';
 import throttle from 'lodash.throttle';
@@ -13,46 +12,25 @@ const temp: any = [
     { id: "4", title: "Title2", permalink: "permalink3", asset: { src: 'https://www.exit109.com/~dnn/clips/RW20seconds_2.mp4', type: 'video/mp4' }, description: 'Fairway to Heaven Episode 1: Fireballs Captain Sergio Garcia' },
     { id: "5", title: "Title2", permalink: "permalink3", asset: { src: 'https://www.exit109.com/~dnn/clips/RW20seconds_2.mp4', type: 'video/mp4' }, description: 'Fairway to Heaven Episode 1: Fireballs Captain Sergio Garcia' },
     { id: "6", title: "Title2", permalink: "permalink3", asset: { src: 'https://www.exit109.com/~dnn/clips/RW20seconds_2.mp4', type: 'video/mp4' }, description: 'Fairway to Heaven Episode 1: Fireballs Captain Sergio Garcia' },
+    { id: "7", title: "Title2", permalink: "permalink3", asset: { src: 'https://www.exit109.com/~dnn/clips/RW20seconds_2.mp4', type: 'video/mp4' }, description: 'Fairway to Heaven Episode 1: Fireballs Captain Sergio Garcia' },
+    { id: "8", title: "Title2", permalink: "permalink3", asset: { src: 'https://www.exit109.com/~dnn/clips/RW20seconds_2.mp4', type: 'video/mp4' }, description: 'Fairway to Heaven Episode 1: Fireballs Captain Sergio Garcia' },
+    { id: "9", title: "Title2", permalink: "permalink3", asset: { src: 'https://www.exit109.com/~dnn/clips/RW20seconds_2.mp4', type: 'video/mp4' }, description: 'Fairway to Heaven Episode 1: Fireballs Captain Sergio Garcia' },
 ];
 
-const BATCH_SIZE = 4;
-const MAX_VISIBLE_PLAYERS = 10;
+const BATCH_SIZE = 2;
+const MAX_VISIBLE_PLAYERS = 5;
 
 
-const defaultInteractions = {
-    like: (id) => {
-        return new Promise((resolve, reject) => {
-            console.log(`LIKE/UNLIKE Clicked for ${id}`);
-            resolve({ message: `Successfully liked ${id}` });
-        });
-    },
-    share: (title, permalink) => console.log(`SHARE Clicked for title ${title} and permalink ${permalink}`),
-    getUserContentInfo: (contentType, contentID) => {
-        console.log(`Fetching info for ${contentType} and id ${contentID}`);
 
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve({
-                    data: {
-                        isLiked: true,
-                        contentType,
-                        contentID,
-                    }
-                });
-            }, 500);
-        });
-    }
-};
+const VerticalPlayer = ({ data }: any) => {
 
-
-const VerticalPlayer = ({ data, initIndex = 0, interactions = defaultInteractions }: any) => {
-
-    data = data && data.length ? data.slice(initIndex) : temp;
+    data = data && data.length ? data.slice(0) :  temp
 
     const [content, setContent] = useState(data)
     const containerRef = useRef(null);
-    const [currentIndex, setCurrentIndex] = useState(initIndex);
+    const [currentIndex, setCurrentIndex] = useState(0);
     let initailVideoBatch;
+
     if (data.length == 1) {
         initailVideoBatch = [data[0]]
     } else {
@@ -63,21 +41,22 @@ const VerticalPlayer = ({ data, initIndex = 0, interactions = defaultInteraction
     const [scrollPosition, setScrollPosition] = useState(0);
 
     const isWithinRange = useCallback(
-        (index) => {
+        (index:number) => {
             return Math.abs(index - currentIndex) < Math.ceil(MAX_VISIBLE_PLAYERS / 2);
         },
         [currentIndex]
     );
 
     // Loading more videos when scrolling near the bottom
-    const [flag, setFlag] = useState(true)
+
     const loadMoreVideos = async () => {
 
         if (loadingMore) return;
         setLoadingMore(true);
 
         const remainingVideos = content.length - videoBatch.length;
-
+        console.log(remainingVideos);
+        
         if (remainingVideos <= 0) {
             const timeToCallRecommendation = videoBatch.length >= content.length;
             if (timeToCallRecommendation) {
@@ -88,15 +67,6 @@ const VerticalPlayer = ({ data, initIndex = 0, interactions = defaultInteraction
             setLoadingMore(false);
             return;
         }
-        if (flag) {
-            setContent(prev => [...prev, { id: "7", title: "Title2", permalink: "permalink3", asset: { src: 'https://www.exit109.com/~dnn/clips/RW20seconds_2.mp4', type: 'video/mp4' }, description: 'Fairway to Heaven Episode 1: Fireballs Captain Sergio Garcia' },
-            { id: "8", title: "Title2", permalink: "permalink3", asset: { src: 'https://www.exit109.com/~dnn/clips/RW20seconds_2.mp4', type: 'video/mp4' }, description: 'Fairway to Heaven Episode 1: Fireballs Captain Sergio Garcia' },
-            { id: "9", title: "Title2", permalink: "permalink3", asset: { src: 'https://www.exit109.com/~dnn/clips/RW20seconds_2.mp4', type: 'video/mp4' }, description: 'Fairway to Heaven Episode 1: Fireballs Captain Sergio Garcia' },
-            { id: "10", title: "Title2", permalink: "permalink3", asset: { src: 'https://www.exit109.com/~dnn/clips/RW20seconds_2.mp4', type: 'video/mp4' }, description: 'Fairway to Heaven Episode 1: Fireballs Captain Sergio Garcia' },
-            { id: "11", title: "Title2", permalink: "permalink3", asset: { src: 'https://www.exit109.com/~dnn/clips/RW20seconds_2.mp4', type: 'video/mp4' }, description: 'Fairway to Heaven Episode 1: Fireballs Captain Sergio Garcia' },
-            { id: "12", title: "Title2", permalink: "permalink3", asset: { src: 'https://www.exit109.com/~dnn/clips/RW20seconds_2.mp4', type: 'video/mp4' }, description: 'Fairway to Heaven Episode 1: Fireballs Captain Sergio Garcia' },]);
-            setFlag(false)
-        }
 
 
         const nextBatchSize = Math.min(BATCH_SIZE, remainingVideos);
@@ -104,10 +74,10 @@ const VerticalPlayer = ({ data, initIndex = 0, interactions = defaultInteraction
 
         if (nextBatch.length > 0) {
             setTimeout(() => {
-                setVideoBatch((prevBatch) => {
+                setVideoBatch((prevBatch:Array<any>) => {
                     const recentBatch = prevBatch.slice(-BATCH_SIZE);
                     const newBatch = prevBatch.concat(
-                        nextBatch.filter(video => !recentBatch.some(v => v.id === video.id))
+                        nextBatch.filter((video:any) => !recentBatch.some(v => v.id === video.id))
                     );
                     console.log(newBatch);
 
@@ -177,7 +147,7 @@ const VerticalPlayer = ({ data, initIndex = 0, interactions = defaultInteraction
                 );
             }
         });
-    }, [videoBatch, currentIndex, interactions, isWithinRange, scrollPosition]);
+    }, [videoBatch, currentIndex, isWithinRange, scrollPosition]);
 
 
     useEffect(() => {
@@ -211,21 +181,21 @@ const VerticalPlayer = ({ data, initIndex = 0, interactions = defaultInteraction
                 timeout = setTimeout(() => fn(...args), delay);
             };
         }
+
         containerRef.current.addEventListener(
             "scroll",
             debounce(() => {
                 let currentScrollTop = containerRef.current.scrollTop;
-                if (currentScrollTop > lastScrollTop) {
-                    // if (scrollAnalytics)
-                    // scrollAnalytics('DOWN')
-                    // if (Math.abs(currentScrollTop - lastScrollTop) > 200) {
-                    // setScrollPosition(currentScrollTop);
-                    // }
-                } else {
-                    // scrollAnalytics)
-                    // scrollAnalytics('UP')
+                if (currentScrollTop > lastScrollTop) { 
                     if (Math.abs(currentScrollTop - lastScrollTop) > 200) {
+                        console.log('DOWN');
                         setScrollPosition(currentScrollTop);
+                    }
+                } else {
+                    if (Math.abs(currentScrollTop - lastScrollTop) > 200) {
+                        console.log('UP');
+                        setScrollPosition(currentScrollTop);
+                        
                     }
                 }
                 lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
