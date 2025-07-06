@@ -8,18 +8,21 @@ import { initaliseSkin } from "../skin";
 import { PlayerInstance } from "../types/videojs";
 
 interface VideoPlayerProps {
-  videoSrc: { src: string; type: string };
+  asset_url: { src: string; type: string };
   playerId: string;
   playing?: boolean;
+  metadata?: {tag:string,description:string}
 }
 
-const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoSrc, playerId, playing = true }) => {
+const VideoPlayer: React.FC<VideoPlayerProps> = ({ asset_url, playerId, playing = true, metadata }) => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const playerRef = useRef<PlayerInstance | null >(null);
 
   useEffect(() => {
+    if (!videoRef.current) return;
 
-    if (videoRef.current && !playerRef.current) {
+    const existingPlayer = videojs.getPlayer(videoRef.current);
+    if (!existingPlayer) {
       playerRef.current = videojs(videoRef.current, {
         autoplay: false,
         controls: false,
@@ -28,14 +31,14 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoSrc, playerId, playing =
         loop: true,
         preload: "auto",
         aspectRatio: '9:16',
-        sources: [videoSrc],
+        sources: [{ src: asset_url, type: null }],
       }, () => {
-        initaliseSkin(playerId, {})
+        initaliseSkin(playerId, { metadata });
       });
+    } else {
+      playerRef.current = existingPlayer;
     }
-
-
-
+  
     return () => {
       if (playerRef.current) {
         playerRef.current = null;
@@ -86,5 +89,5 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoSrc, playerId, playing =
   );
 };
 
-export default VideoPlayer;
+export default VideoPlayer
 

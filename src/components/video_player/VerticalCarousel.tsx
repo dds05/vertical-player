@@ -12,29 +12,62 @@ interface Asset {
 
 interface VideoData {
     id: string;
-    title: string;
-    permalink: string;
+    tag: string;
+    asset_url: string;
     description: string;
-    asset: Asset;
 }
 
-const TEMP_DATA: VideoData[] = Array(9)
-    .fill(null)
-    .map((_, i) => ({
-        id: `${i + 1}`,
-        title: "Title",
-        permalink: "permalink",
-        asset: {
-            src: 'https://www.exit109.com/~dnn/clips/RW20seconds_2.mp4',
-            type: 'video/mp4',
-        },
-        description: `Sample description ${i + 1}`,
-    }));
+// const TEMP_DATA: VideoData[] = Array(9)
+//     .fill(null)
+//     .map((_, i) => ({
+//         id: `${i + 1}`,
+//         title: "Title",
+//         permalink: "permalink",
+//         asset: {
+//             src: 'https://www.exit109.com/~dnn/clips/RW20seconds_2.mp4',
+//             type: 'video/mp4',
+//         },
+//         description: `Sample description ${i + 1}`,
+//     }));
 
+
+const TEMP_DATA: any = [
+    {
+        id: 1,
+        tag: "META VERSE 5",
+        asset_url: 'https://www.exit109.com/~dnn/clips/RW20seconds_2.mp4',
+        description: 'Fairway to Heaven Episode 1: Fireballs Captain Sergio Garcia'
+    },
+    {
+        id: 2,
+        tag: "META VERSE 5",
+        asset_url: 'https://www.exit109.com/~dnn/clips/RW20seconds_2.mp4',
+        description: 'Fairway to Heaven Episode 1: Fireballs Captain Sergio Garcia'
+    },
+    {
+        id: 3,
+        tag: "META VERSE 5",
+        asset_url: 'https://www.exit109.com/~dnn/clips/RW20seconds_2.mp4',
+        description: 'Fairway to Heaven Episode 1: Fireballs Captain Sergio Garcia'
+    },
+    {
+        id: 4,
+        tag: "META VERSE 5",
+        asset_url: 'https://www.exit109.com/~dnn/clips/RW20seconds_2.mp4',
+        description: 'Fairway to Heaven Episode 1: Fireballs Captain Sergio Garcia'
+    },
+    {
+        id: 5,
+        tag: "META VERSE 5",
+        asset_url: 'https://www.exit109.com/~dnn/clips/RW20seconds_2.mp4',
+        description: 'Fairway to Heaven Episode 1: Fireballs Captain Sergio Garcia'
+    },
+
+];
 const BATCH_SIZE = 2;
 const MAX_VISIBLE_PLAYERS = 6;
 
-const VerticalPlayer: React.FC<{ data?: VideoData[] }> = ({ data }) => {
+const VerticalPlayer: React.FC<{ data?: any[] }> = ({ data }) => {
     const initialData = useMemo(() => (data?.length ? [...data] : TEMP_DATA), [data]);
     const [content, setContent] = useState<VideoData[]>(initialData);
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -151,7 +184,8 @@ const VerticalPlayer: React.FC<{ data?: VideoData[] }> = ({ data }) => {
                 <div className="content" key={element.id}>
                     {isWithinRange(index) ? (
                         <VideoPlayer
-                            videoSrc={element.asset}
+                            asset_url={element?.asset_url}
+                            metadata={{tag:element.tag,description:element.description}}
                             playing={index === currentIndex}
                             playerId={`video-player-${element.id}`}
                         />
