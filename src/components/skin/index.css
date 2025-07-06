@@ -8,7 +8,7 @@
 }
 
 .vertical-player-wrapper .vjs-play-progress.vjs-slider-bar {
-    background-color: red !important;
+    background-color: purple !important;
 }
 
 .vertical-player-wrapper .video-js .vjs-progress-control .vjs-progress-holder {
@@ -64,6 +64,8 @@
 }
 
 .vertical-player-wrapper .video-js .vjs-volume-control.vjs-control.vjs-volume-horizontal {
+    left: -3px;
+    top: 1px;
     display: block !important;
 }
 
