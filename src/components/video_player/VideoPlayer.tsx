@@ -32,13 +32,6 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoSrc, playerId, playing =
               aspectRatio: '9:16',
               sources: [videoSrc],
             },()=>{
-              playerRef.current.on('volumechange', () => {
-                let volume = playerRef.current.volume().toFixed(2) * 100;
-                if (playerRef.current.muted())
-                    sessionStorage.setItem('vertical_player_volume', 0);
-                else
-                    sessionStorage.setItem('vertical_player_volume', volume);
-            });
               initaliseSkin(playerId,{})
             });
           }

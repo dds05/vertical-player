@@ -1,18 +1,18 @@
 import { getPlayer } from "@/utils/generic";
-// import { addUserInteractionContainer, addVideoDescription, addVideoGradient } from "../../features";
-// import { playerEvents } from "./event";
-import './index.css'
 import { addBigPauseBtn, addUserInteractionContainer, addVideoDescription, addVideoGradient } from "@/features";
+import './index.css'
+import { playerEvents } from "./events";
 
 
 
 
-function initaliseSkin(playerId:String, options:Object) {
+
+function initaliseSkin(playerId:string , options:Object) {
     addFeatures(playerId, options);
-    // playerEvents(playerId, options)
+    playerEvents(playerId)
 }
 
-function addFeatures(playerId:string|Element, options:Object) {
+function addFeatures(playerId:string, options:Object) {
     console.log(playerId);
     
     const player = getPlayer(playerId);
