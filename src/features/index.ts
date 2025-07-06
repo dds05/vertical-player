@@ -1,7 +1,7 @@
 import { PlayerIdType } from '@/components/types/videojs';
 import videojs from 'video.js';
 import VideoDescription from './description';
-import { VideoDescriptionType } from './gradient/type';
+import { UserInteractionType, VideoDescriptionType } from './type';
 
 const addVideoGradient = (playerId: PlayerIdType) => {
   import('./gradient').then((e) => {
@@ -24,8 +24,8 @@ const addVideoDescription = (playerId:PlayerIdType,options:VideoDescriptionType)
 
 
 
-  const addUserInteractionContainer = (playerId,options)=>{
-    import('./user-intereaction/user-interaction').then((e) => {
+  const addUserInteractionContainer = (playerId:PlayerIdType,options:UserInteractionType)=>{
+    import('./user-intereaction').then((e) => {
       let userInteraction = e.default;
       let player = videojs(playerId);
       videojs.registerComponent("userInteraction", userInteraction);

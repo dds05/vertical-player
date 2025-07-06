@@ -24,8 +24,6 @@ function addFeatures(playerId:PlayerIdType, options:Object) {
         addVideoGradient(playerId);
         addBigPlayButton(playerId);
         addVideoDescription(playerId,{tag:'tesrt',description:'test'});
-
-        
         addUserInteractionContainer(playerId, options);
     }
 }
