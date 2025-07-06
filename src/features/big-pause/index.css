@@ -6,21 +6,25 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: visibility 0.1s ease-out;
-    top: 50%;
-    left: 60%;
-    right: 50%;
-    transform: translate(-50%, -50%);
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     cursor: pointer;
 }
 
 .vertical-player-wrapper .big-pause-btn.hide {
     visibility: hidden !important;
     position: absolute;
-    top: 50%;
-    left: 60%;
-    right: 50%;
-    transform: translate(-50%, -50%);
+    opacity: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     display: flex;
     justify-content: center;
     align-items: center;

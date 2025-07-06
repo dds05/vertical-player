@@ -1,8 +1,6 @@
 import Player from 'video.js/dist/types/player';
 
-type PlayerIdType = {
-    playerID: string;
-};
+type PlayerIdType =  string | Element;
 
 type PlayerInstance = Player | undefined | null;
 

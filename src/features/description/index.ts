@@ -1,19 +1,16 @@
 import videojs from "video.js";
-import './description.css'
+import './index.css'
 const Component = videojs.getComponent('Component');
 
 
-interface VideoDescription{
-    description: String 
-    tag: String
-}
-
 class VideoDescription extends Component {
+    description?: String 
+    tag?: String
 
     constructor(player:any, options:any) {
         super(player, options);
-        this.description=options?.description || 'DESCRIPTION'
-        this.tag=options?.tag || 'TAG'
+        this.description=options?.description || 'THIS IS A DESCRIPTION'
+        this.tag=options?.tag || 'THIS IS A TAG'
         this.createUI();
     }
 
