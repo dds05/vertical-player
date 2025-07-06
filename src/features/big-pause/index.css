@@ -1,4 +1,4 @@
-.vertical-player-wrapper .big-pause-btn {
+.vertical-player-wrapper .vjs-big-play-btn {
     z-index: 10;
     position: absolute;
     align-self: center;
@@ -17,7 +17,7 @@
     cursor: pointer;
 }
 
-.vertical-player-wrapper .big-pause-btn.hide {
+.vertical-player-wrapper .vjs-big-play-btn.hide {
     visibility: hidden !important;
     position: absolute;
     opacity: 0;

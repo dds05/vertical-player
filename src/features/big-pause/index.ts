@@ -19,7 +19,7 @@ class BigPlayButton extends Component {
   // The `createEl` function of a component creates its DOM element.
   createEl() {
     let elem = videojs.dom.createEl('div', {
-      className: `big-pause-btn hide`,
+      className: `vjs-big-play-btn hide`,
     })
     return elem;
   }
