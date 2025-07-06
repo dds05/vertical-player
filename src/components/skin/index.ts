@@ -1,5 +1,5 @@
 import { getPlayer } from "@/utils/generic";
-import { addBigPauseBtn, addBigPlayButton, addUserInteractionContainer, addVideoDescription, addVideoGradient } from "@/features";
+import { addBigPlayButton, addUserInteractionContainer, addVideoDescription, addVideoGradient } from "@/features";
 import './index.css'
 import { playerEvents } from "./events";
 import { PlayerIdType, PlayerInstance } from "../types/videojs";
@@ -12,7 +12,6 @@ function initaliseSkin(playerId:PlayerIdType , options:Object) {
 }
 
 function addFeatures(playerId:PlayerIdType, options:Object) {
-    console.log(playerId);
     
     const player:PlayerInstance = getPlayer(playerId);
 

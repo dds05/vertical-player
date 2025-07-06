@@ -5,7 +5,7 @@ const DummyVideoPlayer = () => {
       <div className="vertical-player-wrapper-dummy" style={{ margin: 'auto' }}>
         <div className="dummy-placeholder">
           <img
-            src="https://chsn.asset.viewlift.com/images/brand/2024/09/27/placeholdecover-1727432648864.png?impolicy=resize&w=1920&h=1080"
+            src="https://picsum.photos/200/300"
             alt="Placeholder"
             className="vertical-player-thumbnail"
           />

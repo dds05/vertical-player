@@ -21,7 +21,7 @@ const likeIcon = (color)=> {
 
 
 const shareIcon = (color) => {
-  console.log(color);
+
   return `<svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" clip-rule="evenodd" d="M0 7C0 6.96548 0.00174889 6.93137 0.00516289 6.89776C0.0563729 6.3935 0.482233 6 1 6H5C5.55228 6 6 6.44772 6 7C6 7.55228 5.55228 8 5 8H2V16H14V8H11C10.4477 8 10 7.55228 10 7C10 6.44772 10.4477 6 11 6H15C15.5523 6 16 6.44772 16 7V17C16 17.5523 15.5523 18 15 18H1C0.447715 18 0 17.5523 0 17V7Z" fill="${color}" />
   <path d="M8 1L5 4M8 1L11 4M8 1V12.6" stroke=${color} stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -31,7 +31,7 @@ const shareIcon = (color) => {
   
 
   const BigPlayIcon=()=>{
-    return `<svg xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" fill="currentColor"  class="bi bi-play" viewBox="0 0 16 16">
+    return `<svg xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" fill="purple"  class="bi bi-play" viewBox="0 0 16 16">
          <path d="M10.804 8 5 4.633v6.734zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696z"/>
       </svg>`
   }

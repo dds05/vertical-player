@@ -20,7 +20,6 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoSrc, playerId, playing =
   useEffect(() => {
 
     if (videoRef.current && !playerRef.current) {
-      console.log(videoRef.current, playerId);
       playerRef.current = videojs(videoRef.current, {
         autoplay: false,
         controls: false,

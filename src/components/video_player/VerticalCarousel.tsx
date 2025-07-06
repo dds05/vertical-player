@@ -1,220 +1,176 @@
-"use client"
+"use client";
+
 import React, { useEffect, useRef, useState, useCallback, useMemo } from 'react';
-import VideoPlayer from './VideoPlayer';
 import throttle from 'lodash.throttle';
+import VideoPlayer from './VideoPlayer';
 import DummyVideoPlayer from './DummyVideoPlayer';
 
+interface Asset {
+    src: string;
+    type: string;
+}
 
-const temp: any = [
-    { id: "1", title: "Title2", permalink: "permalink3", asset: { src: 'https://www.exit109.com/~dnn/clips/RW20seconds_2.mp4', type: 'video/mp4' }, description: 'Fairway to Heaven Episode 1: Fireballs Captain Sergio Garcia' },
-    { id: "2", title: "Title2", permalink: "permalink3", asset: { src: 'https://www.exit109.com/~dnn/clips/RW20seconds_2.mp4', type: 'video/mp4' }, description: 'Fairway to Heaven Episode 1: Fireballs Captain Sergio Garcia' },
-    { id: "3", title: "Title2", permalink: "permalink3", asset: { src: 'https://www.exit109.com/~dnn/clips/RW20seconds_2.mp4', type: 'video/mp4' }, description: 'Fairway to Heaven Episode 1: Fireballs Captain Sergio Garcia' },
-    { id: "4", title: "Title2", permalink: "permalink3", asset: { src: 'https://www.exit109.com/~dnn/clips/RW20seconds_2.mp4', type: 'video/mp4' }, description: 'Fairway to Heaven Episode 1: Fireballs Captain Sergio Garcia' },
-    { id: "5", title: "Title2", permalink: "permalink3", asset: { src: 'https://www.exit109.com/~dnn/clips/RW20seconds_2.mp4', type: 'video/mp4' }, description: 'Fairway to Heaven Episode 1: Fireballs Captain Sergio Garcia' },
-    { id: "6", title: "Title2", permalink: "permalink3", asset: { src: 'https://www.exit109.com/~dnn/clips/RW20seconds_2.mp4', type: 'video/mp4' }, description: 'Fairway to Heaven Episode 1: Fireballs Captain Sergio Garcia' },
-    { id: "7", title: "Title2", permalink: "permalink3", asset: { src: 'https://www.exit109.com/~dnn/clips/RW20seconds_2.mp4', type: 'video/mp4' }, description: 'Fairway to Heaven Episode 1: Fireballs Captain Sergio Garcia' },
-    { id: "8", title: "Title2", permalink: "permalink3", asset: { src: 'https://www.exit109.com/~dnn/clips/RW20seconds_2.mp4', type: 'video/mp4' }, description: 'Fairway to Heaven Episode 1: Fireballs Captain Sergio Garcia' },
-    { id: "9", title: "Title2", permalink: "permalink3", asset: { src: 'https://www.exit109.com/~dnn/clips/RW20seconds_2.mp4', type: 'video/mp4' }, description: 'Fairway to Heaven Episode 1: Fireballs Captain Sergio Garcia' },
-];
+interface VideoData {
+    id: string;
+    title: string;
+    permalink: string;
+    description: string;
+    asset: Asset;
+}
+
+const TEMP_DATA: VideoData[] = Array(9)
+    .fill(null)
+    .map((_, i) => ({
+        id: `${i + 1}`,
+        title: "Title",
+        permalink: "permalink",
+        asset: {
+            src: 'https://www.exit109.com/~dnn/clips/RW20seconds_2.mp4',
+            type: 'video/mp4',
+        },
+        description: `Sample description ${i + 1}`,
+    }));
 
 const BATCH_SIZE = 2;
-const MAX_VISIBLE_PLAYERS = 5;
+const MAX_VISIBLE_PLAYERS = 6;
 
-
-
-const VerticalPlayer = ({ data }: any) => {
-
-    data = data && data.length ? data.slice(0) :  temp
-
-    const [content, setContent] = useState(data)
-    const containerRef = useRef(null);
+const VerticalPlayer: React.FC<{ data?: VideoData[] }> = ({ data }) => {
+    const initialData = useMemo(() => (data?.length ? [...data] : TEMP_DATA), [data]);
+    const [content, setContent] = useState<VideoData[]>(initialData);
     const [currentIndex, setCurrentIndex] = useState(0);
-    let initailVideoBatch;
+    const containerRef = useRef<HTMLDivElement | null>(null);
 
-    if (data.length == 1) {
-        initailVideoBatch = [data[0]]
-    } else {
-        initailVideoBatch = data.slice(0, BATCH_SIZE);
-    }
-    const [videoBatch, setVideoBatch] = useState(initailVideoBatch); // Initial batch of videos
+    const initialBatch = useMemo(
+        () => (content.length === 1 ? [content[0]] : content.slice(0, BATCH_SIZE)),
+        [content]
+    );
+    const [videoBatch, setVideoBatch] = useState<VideoData[]>(initialBatch);
     const [loadingMore, setLoadingMore] = useState(false);
     const [scrollPosition, setScrollPosition] = useState(0);
 
     const isWithinRange = useCallback(
-        (index:number) => {
-            return Math.abs(index - currentIndex) < Math.ceil(MAX_VISIBLE_PLAYERS / 2);
-        },
+        (index: number) => Math.abs(index - currentIndex) < Math.ceil(MAX_VISIBLE_PLAYERS / 2),
         [currentIndex]
     );
 
-    // Loading more videos when scrolling near the bottom
-
-    const loadMoreVideos = async () => {
-
+    const loadMoreVideos = useCallback(async () => {
         if (loadingMore) return;
         setLoadingMore(true);
 
-        const remainingVideos = content.length - videoBatch.length;
-        console.log(remainingVideos);
-        
-        if (remainingVideos <= 0) {
-            const timeToCallRecommendation = videoBatch.length >= content.length;
-            if (timeToCallRecommendation) {
-                // getting Recommendation Data
-                // await callRecommendation();
-            }
+        console.log('im trig');
+        const remaining = content.length - videoBatch.length;
+        if (remaining <= 0) {
 
-            setLoadingMore(false);
-            return;
+            //      const newd:any= await getMOREVIDS();
+            //      setContent((p)=>[...p,...newd])
+                 setLoadingMore(false);
+                 return
+
         }
 
 
-        const nextBatchSize = Math.min(BATCH_SIZE, remainingVideos);
-        const nextBatch = content.slice(videoBatch.length, videoBatch.length + nextBatchSize);
 
-        if (nextBatch.length > 0) {
-            setTimeout(() => {
-                setVideoBatch((prevBatch:Array<any>) => {
-                    const recentBatch = prevBatch.slice(-BATCH_SIZE);
-                    const newBatch = prevBatch.concat(
-                        nextBatch.filter((video:any) => !recentBatch.some(v => v.id === video.id))
-                    );
-                    console.log(newBatch);
+        const nextBatch = content.slice(videoBatch.length, videoBatch.length + BATCH_SIZE);
 
-                    return newBatch;
-                });
-
-                setLoadingMore(false);
-            }, videoBatch.length === 1 ? 0 : 500);
-        } else {
+        setTimeout(() => {
+            setVideoBatch(prev => {
+                const recent = prev.slice(-BATCH_SIZE);
+                return prev.concat(nextBatch.filter(v => !recent.some(r => r.id === v.id)));
+            });
             setLoadingMore(false);
-        }
-    };
+        }, videoBatch.length === 1 ? 0 : 500);
+    }, [loadingMore, content, videoBatch]);
 
-
-
-
-
-    const handleScroll = useCallback(
-        throttle(() => {
-            if (containerRef.current) {
-                if (videoBatch.length === 1) {
-                    loadMoreVideos()
-                }
-                const { clientHeight } = containerRef.current;
-                const triggerPoint = videoBatch.length - 2;
-
-                const contentElements = containerRef.current?.children;
-                if (contentElements && contentElements[triggerPoint]) {
-                    const triggerElement = contentElements[triggerPoint];
-                    const rect = triggerElement.getBoundingClientRect();
-                    if (rect.top < clientHeight) {
-                        loadMoreVideos();
-                    }
-                }
-            }
-        }, 700),
-        [videoBatch, loadingMore, content]
-    );
-
-
+    // ✅ Merged scroll event + direction tracking
     useEffect(() => {
         const container = containerRef.current;
-        container.addEventListener('scroll', handleScroll);
-        return () => container.removeEventListener('scroll', handleScroll);
-    }, [handleScroll]);
+        if (!container) return;
 
+        let lastScrollTop = 0;
 
-    const renderedVideos = useMemo(() => {
-        return videoBatch.map((element, index) => {
-            if (isWithinRange(index)) {
-                return (
-                    <div className="content" key={element.id}>
+        const throttledLoadMore = throttle(() => {
+            const triggerIndex = videoBatch.length - 2;
+            const triggerElement = container.children[triggerIndex] as HTMLElement;
 
-                        <VideoPlayer
-                            videoSrc={element.asset}
-                            playing={index == currentIndex}
-                            playerId={`video-player-${element.id}`}
-                        />
-                    </div>
-                );
-            } else {
-                return (
-                    // <div key={element.id}>d</div>
-                    <div className="content" key={element.id}>
-                        <DummyVideoPlayer />
-                    </div>
-                );
+            if (triggerElement && triggerElement.getBoundingClientRect().top < container.clientHeight) {
+                loadMoreVideos();
             }
-        });
-    }, [videoBatch, currentIndex, isWithinRange, scrollPosition]);
+        }, 700);
 
+        const debouncedScrollDirection = (() => {
+            let timeout: NodeJS.Timeout;
+            return () => {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => {
+                    const current = container.scrollTop;
+                    if (Math.abs(current - lastScrollTop) > 200) {
+                        setScrollPosition(current);
+                    }
+                    lastScrollTop = current <= 0 ? 0 : current;
+                }, 50);
+            };
+        })();
 
+        const onScroll = () => {
+            throttledLoadMore();
+            debouncedScrollDirection();
+        };
+
+        container.addEventListener('scroll', onScroll);
+        return () => container.removeEventListener('scroll', onScroll);
+    }, [videoBatch, loadMoreVideos]);
+
+    // ✅ IntersectionObserver (separate for clarity)
     useEffect(() => {
+        const container = containerRef.current;
         const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
+            entries => {
+                entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        const index = Array.from(containerRef.current?.children || []).indexOf(entry.target);
+                        const index = Array.from(container?.children || []).indexOf(entry.target);
                         setCurrentIndex(index);
                     }
                 });
             },
-            { root: containerRef.current, threshold: 0.7 }
+            { root: container, threshold: 0.7 }
         );
 
-        const contentElements = containerRef.current?.children || [];
-        Array.from(contentElements).forEach((element) => observer.observe(element));
+        const elements = Array.from(container?.children || []);
+        elements.forEach(el => observer.observe(el));
 
         return () => {
-            Array.from(contentElements).forEach((element) => observer.unobserve(element));
+            elements.forEach(el => observer.unobserve(el));
         };
-    }, [renderedVideos, videoBatch]);
-
-    useEffect(() => {
-
-        let lastScrollTop = 0;
-        function debounce(fn, delay) {
-            let timeout;
-            return function (...args) {
-                clearTimeout(timeout);
-                timeout = setTimeout(() => fn(...args), delay);
-            };
-        }
-
-        containerRef.current.addEventListener(
-            "scroll",
-            debounce(() => {
-                let currentScrollTop = containerRef.current.scrollTop;
-                if (currentScrollTop > lastScrollTop) { 
-                    if (Math.abs(currentScrollTop - lastScrollTop) > 200) {
-                        console.log('DOWN');
-                        setScrollPosition(currentScrollTop);
-                    }
-                } else {
-                    if (Math.abs(currentScrollTop - lastScrollTop) > 200) {
-                        console.log('UP');
-                        setScrollPosition(currentScrollTop);
-                        
-                    }
-                }
-                lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
-            }, 50)
-        );
-    }, [])
+    }, [videoBatch]);
 
 
+
+    const renderedVideos = useMemo(
+        () =>
+            videoBatch.map((element, index) => (
+                <div className="content" key={element.id}>
+                    {isWithinRange(index) ? (
+                        <VideoPlayer
+                            videoSrc={element.asset}
+                            playing={index === currentIndex}
+                            playerId={`video-player-${element.id}`}
+                        />
+                    ) : (
+                        <DummyVideoPlayer />
+                    )}
+                </div>
+            )),
+        [videoBatch, currentIndex, isWithinRange]
+    );
 
     return (
-        <div className='vertical-container'>
-            <div style={{ height: "100%", width: "100%" }}>
+        <div className="vertical-container">
+            <div style={{ height: '100%', width: '100%' }}>
                 <div className="overlay-content">
                     <div className="video-content-area" ref={containerRef}>
                         {renderedVideos}
-                        {loadingMore || videoBatch.length < BATCH_SIZE && (
-                            <div className="loading-text">
-                                Loading more videos...
-                            </div>
+                        {(loadingMore || videoBatch.length < BATCH_SIZE) && (
+                            <div className="loading-text">Loading more videos...</div>
                         )}
                     </div>
                 </div>
