@@ -17,7 +17,7 @@ class VideoDescription extends Component {
     // The `createEl` function of a component creates its DOM element.
     createEl() {
         let elem = videojs.dom.createEl('div', {
-            className: `video-description-parent`,
+            className: `vjs-video-metadata`,
         })
         return elem;
     }
@@ -27,7 +27,7 @@ class VideoDescription extends Component {
                 
         if(this.tag){
             let tag = videojs.dom.createEl('div', {
-                className: 'video-description-tag',
+                className: 'vjs-description-tag',
             })
             tag.textContent=`${this.tag}`
             parent.append(tag)
@@ -35,7 +35,7 @@ class VideoDescription extends Component {
 
         if(this.description){
             let text = videojs.dom.createEl('div', {
-                className: 'video-description-text',
+                className: 'vjs-description-text',
             })
             text.textContent=`${this?.description}`
             parent.append(text)
