@@ -24,7 +24,7 @@ class UserInteraction extends Component {
   // The `createEl` function of a component creates its DOM element.
   createEl() {
     let elem = videojs.dom.createEl("div", {
-      className: "user-interaction-selection vjs-control",
+      className: "vjs-user-interaction vjs-control",
     });
     return elem;
   }

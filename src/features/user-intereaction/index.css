@@ -1,6 +1,6 @@
 
 
-.user-interaction-selection.vjs-control {
+.vjs-user-interaction.vjs-control {
     position:absolute;
     right:1.2rem;
     bottom:1rem;
@@ -18,9 +18,7 @@
     justify-content:center;
     align-items:center;
     background:rgba(0,0,0,0.3);
-    /* background:#ffffff46;
-    */
-      border-radius:12px;
+    border-radius:12px;
     margin-bottom:24px;
   }
   .like-interaction:hover,.share-interaction:hover {
@@ -36,9 +34,7 @@
     align-items:center;
     border-radius:12px;
     background:rgba(0,0,0,0.3);
-    /* background:#ffffff46;
-    */  
-      margin-bottom:24px;
+    margin-bottom:24px;
   }
   .category-interaction {
     cursor:pointer;
