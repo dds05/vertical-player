@@ -1,10 +1,10 @@
 /* Progress-bar */
 .vertical-player-wrapper .vjs-progress-control.vjs-control {
-    z-index: 10;
-    position: absolute !important;
+     z-index: 10;
+    /*position: absolute !important;
     height: 20px !important;
     bottom: 0 !important;
-    width: 100% !important
+    width: 100% !important */
 }
 
 .vertical-player-wrapper .vjs-play-progress.vjs-slider-bar {
@@ -13,7 +13,7 @@
 
 .vertical-player-wrapper .video-js .vjs-progress-control .vjs-progress-holder {
     margin: 0 !important;
-    height: 7.5px !important;
+    /* height: 7.5px !important; */
 }
 
 .vertical-player-wrapper .video-js .vjs-play-progress:before {
@@ -21,7 +21,7 @@
 }
 
 .vertical-player-wrapper .video-js .vjs-progress-control {
-    align-items: end !important;
+    /* align-items: end !important; */
 }
 
 /* Volume Pannel */
@@ -114,4 +114,22 @@
     .vertical-player-wrapper .video-js .vjs-volume-panel.vjs-control.vjs-volume-panel-horizontal:hover>.vjs-volume-control.vjs-control.vjs-volume-horizontal {
         display: none !important;
     }
+}
+
+.vertical-player-wrapper .vjs-progress-control.vjs-control{
+    width: 100%;
+}
+.vertical-player-wrapper .vjs-progress-control.vjs-control .vjs-progress-holder:hover {
+    height: 1em;
+    position: absolute ; 
+    transition: height 0.3s, bottom 0.3s;
+    width: 100% ;
+    bottom: 0;
+}
+.vertical-player-wrapper .vjs-progress-control.vjs-control .vjs-progress-holder {
+    height: 0.7em;
+    position: absolute;
+    bottom: 0;
+    width: 100% ;
+
 }
