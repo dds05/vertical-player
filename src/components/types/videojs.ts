@@ -1,5 +1,9 @@
+import Player from 'video.js/dist/types/player';
+
 type PlayerIdType = {
     playerID: string;
 };
 
-export type {PlayerIdType}
+type PlayerInstance = Player | undefined | null;
+
+export type {PlayerIdType,PlayerInstance}

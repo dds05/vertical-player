@@ -1,12 +1,14 @@
 
-import { PlayerIdType } from '@/components/types/videojs';
-import videojs from 'video.js'
+import { PlayerIdType, PlayerInstance } from '@/components/types/videojs';
+import videojs from 'video.js';
 
-const getPlayer = (playerId: PlayerIdType) => {
+
+
+const getPlayer = (playerId: PlayerIdType) : PlayerInstance  => {
     if (videojs.getPlayer(`${playerId}`))
         return videojs.getPlayer(`${playerId}`);
     else
-        return false;
+        return null;
 }
 
 

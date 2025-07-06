@@ -2,34 +2,29 @@ import { getPlayer } from "@/utils/generic";
 import { addBigPauseBtn, addUserInteractionContainer, addVideoDescription, addVideoGradient } from "@/features";
 import './index.css'
 import { playerEvents } from "./events";
+import { PlayerIdType, PlayerInstance } from "../types/videojs";
 
 
 
-
-
-function initaliseSkin(playerId:string , options:Object) {
+function initaliseSkin(playerId:PlayerIdType , options:Object) {
     addFeatures(playerId, options);
     playerEvents(playerId)
 }
 
-function addFeatures(playerId:string, options:Object) {
+function addFeatures(playerId:PlayerIdType, options:Object) {
     console.log(playerId);
     
-    const player = getPlayer(playerId);
-    console.log(player);
-    
-    if (player && typeof player.addChild === 'function') {
-        console.log(player);
-        
+    const player:PlayerInstance = getPlayer(playerId);
+
+    if (player) {        
         player.addChild('ProgressControl');
         player.addChild('PlayToggle');
-        player.addChild('VolumePanel')
+        player.addChild('VolumePanel');
+
         addVideoDescription(playerId,{});
         addVideoGradient(playerId, { top: true, bottom: true });
         addBigPauseBtn(playerId,{})
         addUserInteractionContainer(playerId, options);
-    } else {
-        console.error(`Error : player.addChild is not a function.`);
     }
 }
 
