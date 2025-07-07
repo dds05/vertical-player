@@ -17,54 +17,41 @@ interface VideoData {
     description: string;
 }
 
-// const TEMP_DATA: VideoData[] = Array(9)
-//     .fill(null)
-//     .map((_, i) => ({
-//         id: `${i + 1}`,
-//         title: "Title",
-//         permalink: "permalink",
-//         asset: {
-//             src: 'https://www.exit109.com/~dnn/clips/RW20seconds_2.mp4',
-//             type: 'video/mp4',
-//         },
-//         description: `Sample description ${i + 1}`,
-//     }));
-
 
 const TEMP_DATA: any = [
     {
         id: 1,
-        tag: "META VERSE 5",
+        tag: "BRAND",
         asset_url: 'https://www.exit109.com/~dnn/clips/RW20seconds_2.mp4',
-        description: 'Fairway to Heaven Episode 1: Fireballs Captain Sergio Garcia'
+        description: 'This is a simple description which basically describes the video'
     },
     {
         id: 2,
-        tag: "META VERSE 5",
+        tag: "BRAND",
         asset_url: 'https://www.exit109.com/~dnn/clips/RW20seconds_2.mp4',
-        description: 'Fairway to Heaven Episode 1: Fireballs Captain Sergio Garcia'
+        description: 'This is a simple description which basically describes the video'
     },
     {
         id: 3,
-        tag: "META VERSE 5",
+        tag: "BRAND",
         asset_url: 'https://www.exit109.com/~dnn/clips/RW20seconds_2.mp4',
-        description: 'Fairway to Heaven Episode 1: Fireballs Captain Sergio Garcia'
+        description: 'This is a simple description which basically describes the video'
     },
     {
         id: 4,
-        tag: "META VERSE 5",
+        tag: "BRAND",
         asset_url: 'https://www.exit109.com/~dnn/clips/RW20seconds_2.mp4',
-        description: 'Fairway to Heaven Episode 1: Fireballs Captain Sergio Garcia'
+        description: 'This is a simple description which basically describes the video'
     },
     {
         id: 5,
-        tag: "META VERSE 5",
+        tag: "BRAND",
         asset_url: 'https://www.exit109.com/~dnn/clips/RW20seconds_2.mp4',
-        description: 'Fairway to Heaven Episode 1: Fireballs Captain Sergio Garcia'
+        description: 'This is a simple description which basically describes the video'
     },
-
 ];
-const BATCH_SIZE = 2;
+
+const BATCH_SIZE = 3;
 const MAX_VISIBLE_PLAYERS = 6;
 
 const VerticalPlayer: React.FC<{ data?: any[] , handleLike:any, handleShare:any,theme:string}> = ({ data,handleLike,handleShare,theme }) => {
@@ -90,18 +77,13 @@ const VerticalPlayer: React.FC<{ data?: any[] , handleLike:any, handleShare:any,
         if (loadingMore) return;
         setLoadingMore(true);
 
-        console.log('im trig');
         const remaining = content.length - videoBatch.length;
         if (remaining <= 0) {
-
-            //      const newd:any= await getMOREVIDS();
-            //      setContent((p)=>[...p,...newd])
-                 setLoadingMore(false);
-                 return
-
+            // const newd:any= await getMOREVIDS();
+            // setContent((p)=>[...p,...newd])
+            setLoadingMore(false);
+            return;
         }
-
-
 
         const nextBatch = content.slice(videoBatch.length, videoBatch.length + BATCH_SIZE);
 
@@ -114,7 +96,7 @@ const VerticalPlayer: React.FC<{ data?: any[] , handleLike:any, handleShare:any,
         }, videoBatch.length === 1 ? 0 : 500);
     }, [loadingMore, content, videoBatch]);
 
-    // ✅ Merged scroll event + direction tracking
+
     useEffect(() => {
         const container = containerRef.current;
         if (!container) return;
@@ -153,7 +135,7 @@ const VerticalPlayer: React.FC<{ data?: any[] , handleLike:any, handleShare:any,
         return () => container.removeEventListener('scroll', onScroll);
     }, [videoBatch, loadMoreVideos]);
 
-    // ✅ IntersectionObserver (separate for clarity)
+
     useEffect(() => {
         const container = containerRef.current;
         const observer = new IntersectionObserver(
