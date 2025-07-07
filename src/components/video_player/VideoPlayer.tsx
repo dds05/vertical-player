@@ -15,9 +15,10 @@ interface VideoPlayerProps {
   id?: string,
   handleLike?: Function;
   handleShare?: Function;
+  theme?:string
 }
 
-const VideoPlayer: React.FC<VideoPlayerProps> = ({ asset_url, playerId, playing = true, metadata ,id , handleLike, handleShare}) => {
+const VideoPlayer: React.FC<VideoPlayerProps> = ({ asset_url, playerId, playing = true, metadata ,id , handleLike, handleShare,theme}) => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const playerRef = useRef<PlayerInstance | null >(null);
 
@@ -34,9 +35,12 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ asset_url, playerId, playing 
         loop: true,
         preload: "auto",
         aspectRatio: '9:16',
+        controlBar: {
+          children: [] // removes all control bar buttons
+        },
         sources: [{ src: asset_url, type: null }],
       }, () => {
-        initaliseSkin(playerId, { metadata, id , handleShare, handleLike});
+        initaliseSkin(playerId, { metadata, id , handleShare, handleLike, theme});
       });
     } else {
       playerRef.current = existingPlayer;

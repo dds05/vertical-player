@@ -17,6 +17,7 @@ function addFeatures(playerId:PlayerIdType, options:any) {
     const id= options?.id ?? {};
     const handleLike=options?.handleLike;
     const handleShare=options?.handleShare;
+    const theme= options?.theme;
     
     const player:PlayerInstance = getPlayer(playerId);
 
@@ -29,6 +30,12 @@ function addFeatures(playerId:PlayerIdType, options:any) {
         addBigPlayButton(playerId);
         addVideoDescription(playerId,metadata);
         addUserInteractionContainer(playerId, {id, handleLike, handleShare});
+
+        const BigPlayBtn = document.querySelector('.vjs-big-play-btn svg')
+        BigPlayBtn?.setAttribute('fill', `${theme}`)
+
+        const ProgressBar: any = document.querySelector('.vertical-player-wrapper .vjs-play-progress');
+        ProgressBar.style.backgroundColor = `${theme}`
     }
 }
 

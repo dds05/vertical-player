@@ -11,6 +11,6 @@ export default function Home() {
     console.log(e);
   }
   return (
-    <VerticalCarousel handleLike={handleLike} handleShare={handleShare}  />
+    <VerticalCarousel handleLike={handleLike} handleShare={handleShare} theme='lightgreen'  />
   );
 }
