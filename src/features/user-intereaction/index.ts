@@ -11,11 +11,15 @@ class UserInteraction extends Component {
   showShareBtn: boolean;
   playerId: PlayerIdType;
   id: any;
+  handleShare:any;
+  handleLike:any
 
   constructor(player: any, options = {}) {
     super(player, options);
     this.playerId = options.playerId;
     this.id = options.id;
+    this.handleShare= options.handleShare
+    this.handleLike=options.handleLike
 
     this.showlikeBtn = true; //remove hardcoding
     this.showShareBtn = true; //remove hardcoding
@@ -69,12 +73,13 @@ class UserInteraction extends Component {
         like_interaction.onclick = () => {
           if (!likeBtnState) {
             icon?.setAttribute('href', '#vjs-like-red')
-            likeBtnState = true;
+            likeBtnState = true;      
+            this.handleLike({status:true,name:'like',id:this.id});
           } else {
             icon?.setAttribute('href', '#vjs-like-white')
             likeBtnState = false;
+            this.handleLike({status:false,name:'unlike',id:this.id});
           }
-          console.log('like clicked', this.id);
         };
 
         videojs.dom.appendContent(head, like_interaction);
@@ -89,7 +94,7 @@ class UserInteraction extends Component {
         innerHTML: shareIcon("white"),
       });
       share_interaction.onclick = () => {
-        console.log('share clicked', this.id);
+        this.handleShare({name:'share',id:this.id});
       };
       videojs.dom.appendContent(head, share_interaction);
     }

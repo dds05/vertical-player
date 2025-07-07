@@ -67,7 +67,7 @@ const TEMP_DATA: any = [
 const BATCH_SIZE = 2;
 const MAX_VISIBLE_PLAYERS = 6;
 
-const VerticalPlayer: React.FC<{ data?: any[] }> = ({ data }) => {
+const VerticalPlayer: React.FC<{ data?: any[] , handleLike:any, handleShare:any}> = ({ data,handleLike,handleShare }) => {
     const initialData = useMemo(() => (data?.length ? [...data] : TEMP_DATA), [data]);
     const [content, setContent] = useState<VideoData[]>(initialData);
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -185,6 +185,8 @@ const VerticalPlayer: React.FC<{ data?: any[] }> = ({ data }) => {
                     {isWithinRange(index) ? (
                         <VideoPlayer
                             id={element.id}
+                            handleShare={handleShare}
+                            handleLike={handleLike}
                             asset_url={element?.asset_url}
                             metadata={{tag:element.tag,description:element.description}}
                             playing={index === currentIndex}

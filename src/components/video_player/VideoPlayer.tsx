@@ -12,10 +12,12 @@ interface VideoPlayerProps {
   playerId: string;
   playing?: boolean;
   metadata?: {tag:string,description:string};
-  id?: string
+  id?: string,
+  handleLike?: Function;
+  handleShare?: Function;
 }
 
-const VideoPlayer: React.FC<VideoPlayerProps> = ({ asset_url, playerId, playing = true, metadata ,id}) => {
+const VideoPlayer: React.FC<VideoPlayerProps> = ({ asset_url, playerId, playing = true, metadata ,id , handleLike, handleShare}) => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const playerRef = useRef<PlayerInstance | null >(null);
 
@@ -34,7 +36,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ asset_url, playerId, playing 
         aspectRatio: '9:16',
         sources: [{ src: asset_url, type: null }],
       }, () => {
-        initaliseSkin(playerId, { metadata, id });
+        initaliseSkin(playerId, { metadata, id , handleShare, handleLike});
       });
     } else {
       playerRef.current = existingPlayer;

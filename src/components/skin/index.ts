@@ -15,6 +15,8 @@ function addFeatures(playerId:PlayerIdType, options:any) {
 
     const metadata= options?.metadata ?? {};
     const id= options?.id ?? {};
+    const handleLike=options?.handleLike;
+    const handleShare=options?.handleShare;
     
     const player:PlayerInstance = getPlayer(playerId);
 
@@ -26,7 +28,7 @@ function addFeatures(playerId:PlayerIdType, options:any) {
         addVideoGradient(playerId);
         addBigPlayButton(playerId);
         addVideoDescription(playerId,metadata);
-        addUserInteractionContainer(playerId, {id});
+        addUserInteractionContainer(playerId, {id, handleLike, handleShare});
     }
 }
 
