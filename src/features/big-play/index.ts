@@ -64,6 +64,10 @@ class BigPlayButton extends Component {
     player?.on('play', () => {
       parent?.classList?.add('hide')
     })
+
+    player?.on('pause', () => {
+      parent?.classList?.remove('hide')
+    })
   }
 }
 

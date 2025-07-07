@@ -34,7 +34,7 @@ const addVideoDescription = (playerId:PlayerIdType,options:VideoDescriptionType)
   }
 
   const addBigPlayButton = (playerId:PlayerIdType)=>{
-    import('./big-pause').then((e) => {
+    import('./big-play').then((e) => {
       let BigPlayButton = e.default;
       const player = videojs(playerId);
       videojs.registerComponent("BigPlayButton", BigPlayButton);
