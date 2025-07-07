@@ -8,11 +8,11 @@ import { initaliseSkin } from "../skin";
 import { PlayerInstance } from "../types/videojs";
 
 interface VideoPlayerProps {
-  asset_url: { src: string; type: string };
+  asset_url: string;
   playerId: string;
+  id: number,
   playing?: boolean;
   metadata?: {tag:string,description:string};
-  id?: string,
   handleLike?: Function;
   handleShare?: Function;
   theme?:string

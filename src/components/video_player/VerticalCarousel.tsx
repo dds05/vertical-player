@@ -11,10 +11,10 @@ interface Asset {
 }
 
 interface VideoData {
-    id: string;
-    tag: string;
+    id: number;
+    tag?: string;
+    description?: string;
     asset_url: string;
-    description: string;
 }
 
 
@@ -54,7 +54,7 @@ const TEMP_DATA: any = [
 const BATCH_SIZE = 3;
 const MAX_VISIBLE_PLAYERS = 6;
 
-const VerticalPlayer: React.FC<{ data?: any[] , handleLike:any, handleShare:any,theme:string}> = ({ data,handleLike,handleShare,theme }) => {
+const VerticalPlayer: React.FC<{ data?: VideoData[] , handleLike:Function, handleShare:Function,theme:string}> = ({ data,handleLike,handleShare,theme }) => {
     const initialData = useMemo(() => (data?.length ? [...data] : TEMP_DATA), [data]);
     const [content, setContent] = useState<VideoData[]>(initialData);
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -171,7 +171,7 @@ const VerticalPlayer: React.FC<{ data?: any[] , handleLike:any, handleShare:any,
                             handleShare={handleShare}
                             handleLike={handleLike}
                             asset_url={element?.asset_url}
-                            metadata={{tag:element.tag,description:element.description}}
+                            metadata={{tag:element?.tag || '',description:element?.description || ''}}
                             playing={index === currentIndex}
                             playerId={`video-player-${element.id}`}
                         />
