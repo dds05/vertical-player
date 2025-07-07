@@ -31,10 +31,12 @@ function addFeatures(playerId:PlayerIdType, options:any) {
         addVideoDescription(playerId,metadata);
         addUserInteractionContainer(playerId, {id, handleLike, handleShare});
 
-        const BigPlayBtn = document.querySelector('.vjs-big-play-btn svg')
-        BigPlayBtn?.setAttribute('fill', `${theme}`)
+        setTimeout(()=>{            
+            const BigPlayBtn=player.getChild('BigPlayButton')?.el().querySelector('svg')
+            BigPlayBtn?.setAttribute('fill', `${theme}`)
+        },100)
 
-        const ProgressBar: any = document.querySelector('.vertical-player-wrapper .vjs-play-progress');
+        const ProgressBar: any = player.getChild('ProgressControl')?.el().querySelector('.vertical-player-wrapper .vjs-play-progress');
         ProgressBar.style.backgroundColor = `${theme}`
     }
 }
