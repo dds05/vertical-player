@@ -59,7 +59,13 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ asset_url, playerId, playing 
     if (playing) {
       handleSoundAction();
       playerRef?.current?.play()?.catch((err) => {
-        console.warn("Autoplay blocked or failed:", err);
+        playerRef?.current?.muted(true);
+        //try muted autoplay now
+        try{
+          playerRef?.current?.play()
+        }catch(e){
+          console.warn("Autoplay blocked or failed:", err);
+        }
       });
     } else {
       playerRef.current.pause();

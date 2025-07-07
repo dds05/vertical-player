@@ -120,6 +120,7 @@
 
 .vertical-player-wrapper .vjs-progress-control.vjs-control{
     width: 100%;
+    height: max-content;
 }
 .vertical-player-wrapper .vjs-progress-control.vjs-control .vjs-progress-holder:hover {
     height: 1em;
