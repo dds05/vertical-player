@@ -9,12 +9,12 @@ class UserInteraction extends Component {
   showlikeBtn: boolean;
   showShareBtn: boolean;
   playerId: PlayerIdType;
-  options: any;
+  id: any;
 
   constructor(player: any, options = {}) {
-    super(player, options);
+    super(player, options);    
     this.playerId = player;
-    this.options = options;
+    this.id = options.id;
 
     this.showlikeBtn = true; //remove hardcoding
     this.showShareBtn = true; //remove hardcoding
@@ -34,12 +34,7 @@ class UserInteraction extends Component {
 
     if (this.showlikeBtn) {
       try {
-        let res = await this.options?.interaction?.getUserContentInfo(
-          "video",
-          this.options?.content?.id
-        );
-
-        let likeBtnState = res?.data?.isLiked ?? false;
+        let likeBtnState = false
         let likeIconColor = likeBtnState ? "red" : "white";
 
         let like_interaction: any = videojs.dom.createEl("div", {
@@ -47,8 +42,8 @@ class UserInteraction extends Component {
           innerHTML: likeIcon(likeIconColor),
         });
 
-        like_interaction.onclick = async () => {
-          console.log('like clicked');
+        like_interaction.onclick = () => {
+          console.log('like clicked',this.id);
         };
 
         videojs.dom.appendContent(head, like_interaction);
@@ -64,7 +59,7 @@ class UserInteraction extends Component {
         innerHTML: shareIcon("white"),
       });
       share_interaction.onclick = () => {
-        this.options?.interaction?.share(this.options?.content?.title, this.options?.content?.permalink);
+        console.log('share clicked',this.id);
       };
       videojs.dom.appendContent(head, share_interaction);
     }

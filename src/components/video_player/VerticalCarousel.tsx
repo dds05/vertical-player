@@ -184,6 +184,7 @@ const VerticalPlayer: React.FC<{ data?: any[] }> = ({ data }) => {
                 <div className="content" key={element.id}>
                     {isWithinRange(index) ? (
                         <VideoPlayer
+                            id={element.id}
                             asset_url={element?.asset_url}
                             metadata={{tag:element.tag,description:element.description}}
                             playing={index === currentIndex}

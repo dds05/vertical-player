@@ -14,6 +14,7 @@ function initaliseSkin(playerId:PlayerIdType , options:Object) {
 function addFeatures(playerId:PlayerIdType, options:any) {
 
     const metadata= options?.metadata ?? {};
+    const id= options?.id ?? {};
     
     const player:PlayerInstance = getPlayer(playerId);
 
@@ -25,7 +26,7 @@ function addFeatures(playerId:PlayerIdType, options:any) {
         addVideoGradient(playerId);
         addBigPlayButton(playerId);
         addVideoDescription(playerId,metadata);
-        addUserInteractionContainer(playerId, options);
+        addUserInteractionContainer(playerId, {id});
     }
 }
 

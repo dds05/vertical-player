@@ -24,7 +24,7 @@ const addVideoDescription = (playerId:PlayerIdType,options:VideoDescriptionType)
 
 
 
-  const addUserInteractionContainer = (playerId:PlayerIdType,options:UserInteractionType)=>{
+  const addUserInteractionContainer = (playerId:PlayerIdType,options:any)=>{
     import('./user-intereaction').then((e) => {
       let UserInteraction = e.default;
       const player = videojs(playerId);
