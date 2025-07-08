@@ -52,8 +52,8 @@ const TEMP_DATA: any = [
     },
 ];
 
-const BATCH_SIZE = 3;
-const MAX_VISIBLE_PLAYERS = 6;
+const BATCH_SIZE = 5;
+const MAX_VISIBLE_PLAYERS = 10;
 
 const VerticalPlayer: React.FC<{ data?: VideoData[] , handleLike:Function, handleShare:Function,theme:string}> = ({ data,handleLike,handleShare,theme }) => {
     const initialData = useMemo(() => (data?.length ? [...data] : TEMP_DATA), [data]);
