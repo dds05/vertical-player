@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState, useCallback, useMemo } from 'react'
 import throttle from 'lodash.throttle';
 import VideoPlayer from './VideoPlayer';
 import DummyVideoPlayer from './DummyVideoPlayer';
+import { usePreloadIcons } from './usePreloadIcons';
 
 interface Asset {
     src: string;
@@ -59,7 +60,7 @@ const VerticalPlayer: React.FC<{ data?: VideoData[] , handleLike:Function, handl
     const [content, setContent] = useState<VideoData[]>(initialData);
     const [currentIndex, setCurrentIndex] = useState(0);
     const containerRef = useRef<HTMLDivElement | null>(null);
-
+    usePreloadIcons();
     const initialBatch = useMemo(
         () => (content.length === 1 ? [content[0]] : content.slice(0, BATCH_SIZE)),
         [content]

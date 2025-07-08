@@ -103,6 +103,10 @@
     display: none;
   }
 }
+.vjs-svg-icon{
+  width: 24px;
+  height: 24px;
+}
 
 .vertical-container {
 

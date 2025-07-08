@@ -44,6 +44,6 @@ export default function Home() {
     
     ];
   return (
-    <VerticalCarousel data={TEMP_DATA} handleLike={handleLike} handleShare={handleShare} theme='yellow'  />
+    <VerticalCarousel data={TEMP_DATA} handleLike={handleLike} handleShare={handleShare} theme='lightgreen'  />
   );
 }
