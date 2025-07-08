@@ -31,13 +31,17 @@ function addFeatures(playerId:PlayerIdType, options:any) {
         addVideoDescription(playerId,metadata);
         addUserInteractionContainer(playerId, {id, handleLike, handleShare});
 
-        setTimeout(()=>{            
-            const BigPlayBtn=player.getChild('BigPlayButton')?.el().querySelector('svg')
-            BigPlayBtn?.setAttribute('fill', `${theme}`)
+        setTimeout(()=>{        
+            if(theme){
+                const BigPlayBtn=player.getChild('BigPlayButton')?.el().querySelector('svg')
+                BigPlayBtn?.setAttribute('fill', `${theme}`)
+            }    
         },100)
 
-        const ProgressBar: any = player.getChild('ProgressControl')?.el().querySelector('.vertical-player-wrapper .vjs-play-progress');
-        ProgressBar.style.backgroundColor = `${theme}`
+        if(theme){
+            const ProgressBar: any = player.getChild('ProgressControl')?.el().querySelector('.vertical-player-wrapper .vjs-play-progress');
+            ProgressBar.style.backgroundColor = `${theme}`
+        }
     }
     
     const SVG_NS = "http://www.w3.org/2000/svg";
