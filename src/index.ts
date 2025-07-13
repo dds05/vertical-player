@@ -1,0 +1,1 @@
+export {default as VerticalPlayer} from './components/video_player/VerticalCarousel'
