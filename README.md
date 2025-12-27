@@ -5,6 +5,7 @@ A video.js based video player built with Next.js, focused on immersive, scrollab
 <img width="400" height="800" alt="image" src="https://github.com/user-attachments/assets/8eef62b9-cc63-4a2a-ab1b-b1c26968e08c" />
 </p>
 
+
 ## 👉🏻 Installation  
 ```
 npm install vertical-player
@@ -74,6 +75,18 @@ export default function Home() {
 | `handleShare` | `fn()` | ❌ No     | Callback fn emitted when share button is clicked     
 
 <br>
+
+## Demo
+
+
+https://github.com/user-attachments/assets/44fc682d-dea6-4013-8daf-113058a68cf6
+
+
+<p align="center">
+
+</p>
+
+
 
 
 ## ❤️ Support
