@@ -5,6 +5,7 @@ import postcss from 'rollup-plugin-postcss';
 import svgr from '@svgr/rollup';
 import typescript from '@rollup/plugin-typescript';
 import dts from 'rollup-plugin-dts';
+import copy from 'rollup-plugin-copy'
 
 export default [
   // JavaScript + JSX bundle
@@ -16,13 +17,13 @@ export default [
       {
         dir: 'dist',
         format: 'esm',
-        entryFileNames: '[name].es.js',
+        entryFileNames: 'esm/[name].es.js',
         sourcemap: true,
       },
       {
         dir: 'dist',
         format: 'cjs',
-        entryFileNames: '[name].cjs.js',
+        entryFileNames: 'cjs/[name].cjs.js',
         sourcemap: true,
       },
     ],
@@ -36,6 +37,11 @@ export default [
       typescript({
         jsx: 'react-jsx', // for React 17+ or Next.js
       tsconfig: './tsconfig.json',
+      }),
+      copy({
+        targets: [
+          { src: 'package.json', dest: 'dist/' }
+        ]
       }),
     ],
   },
