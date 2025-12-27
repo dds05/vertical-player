@@ -40,7 +40,9 @@ export default [
       }),
       copy({
         targets: [
-          { src: 'package.json', dest: 'dist/' }
+          { src: 'package.json', dest: 'dist/' },
+          { src: 'LICENSE.md', dest: 'dist/' },
+          { src: 'README.md', dest: 'dist/' }
         ]
       }),
     ],
