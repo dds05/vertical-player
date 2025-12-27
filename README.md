@@ -1,5 +1,10 @@
 ##  Vertical Player
 A video.js based video player built with Next.js, focused on immersive, scrollable vertical video playback (similar to TikTok/Reels).
+
+<p align="center">
+<img width="400" height="800" alt="image" src="https://github.com/user-attachments/assets/8eef62b9-cc63-4a2a-ab1b-b1c26968e08c" />
+</p>
+
 ## 👉🏻 Installation  
 ```
 npm install vertical-player
