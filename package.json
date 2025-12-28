@@ -1,6 +1,6 @@
 {
   "name": "vertical-player",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "A video.js based player built with nextjs to facilitate a vertical scrolling experience.",
   "author": "Daman",
   "license": "ISC",
